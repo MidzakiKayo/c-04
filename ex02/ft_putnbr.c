@@ -4,23 +4,30 @@ void	ft_putnbr(int *nb)
 {
 	int	size;
 	int	temp;
+	char	minus;
 
-	size = 0;
+	minus = '-';
+	size = 1;
 	temp = *nb;
-	if (*nb > 0 && *nb < 0)
+	if (*nb < 0)
 	{
-		while (temp != 0)
+		write(1, &minus, 1);
+	}
+	*nb *= (-1);
+	if (*nb != 0)
+	{
+		while (temp)
 		{
 			temp /= 10;
-			size++;
+			size *= 10;
 		}
 		while (*nb != 0)
 		{
+			size /= 10;
 			temp = *nb;
-			temp = (temp / (10 ^ size)) + 48;
-			write(1, temp, 1);
-			*nb %= (10 ^ size);
-			size--;
+			temp = (temp / size) + 48;
+			write(1, &temp, 1);
+			*nb %= size;
 		}
 	}
 
